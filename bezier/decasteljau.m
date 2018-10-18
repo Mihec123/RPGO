@@ -20,20 +20,16 @@ function D = decasteljau(b,t)
 %za i > n-j+2 so NaN)
 
 n = length(b)-1;
-tabela = NaN(n+1,n+1);
+D = NaN(n+1,n+1);
 for i=0:n
-    tabela(1,i+1) = b(i+1);
+    D(1,i+1) = b(i+1);
 end
 
 for r = 1:n
     for i=0:n-r
-        tabela(r+1,i+1) = (1-t)*tabela((r-1)+1,i+1) + t*tabela((r-1)+1,i+1+1);%stevilcenje se zacne pri 1 ne pri 0
+        D(r+1,i+1) = (1-t)*D((r-1)+1,i+1) + t*D((r-1)+1,i+1+1);%stevilcenje se zacne pri 1 ne pri 0
     end
 end
-
-D = tabela;
-    
-
 
 end
 

@@ -1,4 +1,5 @@
 function plotbazneBernstein( stopnja )
+%stopnja pove katere stopnje bernsteinovih baznih polinomov nari?emo
 
 D = eye(stopnja+1);
 x = linspace(0,1);
