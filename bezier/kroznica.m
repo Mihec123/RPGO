@@ -44,6 +44,7 @@ yp=sin(ang);
 
 figure;
 hold on;
+axis equal
 plot(xp,yp,'r');
 plot(b(:,1),b(:,2),'b')
 plot(B(:,1),B(:,2),'k-o','LineWidth',1)
