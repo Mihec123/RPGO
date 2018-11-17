@@ -7,7 +7,7 @@ w = [0.5,0.7,0.8,1,0.6];
 
 
 %b = rbezier(B,w,linspace(0,1));
-%plotrbezier (B,w,linspace(0,1))
+plotrbezier (B,w,linspace(0,1))
 %w1 = [0.5,2,0.8,1,0.6];
 %plotrbezier (B,w1,linspace(0,1))
 %w2 = [0.5,0.2,0.8,1,0.6];
@@ -38,6 +38,9 @@ end
 btemp = rbezier(B1,w11,linspace(0,1));
 plot(btemp(:,1),btemp(:,2),'k');
 hold off;
+
+%priporocilo asistenta poglej kako bi lahko naredu tko da bi lahko vleku
+%samo eno tocko od q tock ne da bi se ostale premikale 
 
 
 

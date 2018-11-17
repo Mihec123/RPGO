@@ -1,6 +1,20 @@
-function [ K ] = ekstrapolacija( B, t)
-%UNTITLED2 Summary of this function goes here
-%   Detailed explanation goes here
+function K  = ekstrapolacija( B, t)
+% Opis:
+%   ekstrapolacija vrne kontrolne tocke bezierjeve krivulje glede na
+%   interval [1,t]
+%
+% Definicija:
+%   K = ekstrapolacija( B, t)
+%
+% Vhodna  podatka:
+%   B seznam  koordinat  kontrolnih  to?k  Bezierjeve  krivulje
+% stopnje n,
+%   t parameter ki doloca interval [1,t] parametrizacije 
+%
+% Izhodni  podatek:
+%   K tabela  velikosti n+1 x d, ki  predstavlja 
+%   koordinat  kontrolnih  to?k  Bezierjeve  krivulje na intervalu [1,d]
+
 
 A = size(B);
 n = A(1);

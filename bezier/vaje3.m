@@ -6,7 +6,7 @@ B = [0 0; 2 3; 4 2; 5 -1];
 t = 0.5;
 k=2;
 
-%BS = beziersub(B,t,k);  
+BS = beziersub(B,t,k);  
 
 BS = plotBeziersub( B,t,k,linspace(0,1));
 
