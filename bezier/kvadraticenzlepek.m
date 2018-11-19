@@ -1,6 +1,20 @@
-function [ B ] = kvadraticenzlepek(D,u)
-%UNTITLED3 Summary of this function goes here
-%   Detailed explanation goes here
+function  B  = kvadraticenzlepek(u,D)
+% Opis:
+%   kvadraticenzlepek  izra?una  sestavljeno  Bezierjevo  krivuljo
+%   stopnje 2, ki je  enkrat  zvezno  odvedljiva v stikih
+%
+% Definicija:
+%   B = kvadraticenzlepek(u,D)
+%
+% Vhodna  podatka:
+%   u seznam  parametrov  delitve  dol?ine m+1,
+%   D matrika , v kateri  vsaka  izmed m+2  vrstic  predstavlja
+% eno  kontrolno  to?ko  sestavljene  krivulje
+%
+% Izhodni  podatek:
+%   B seznam  dol?ine m, v kateri  je vsak  element  matrika s
+% tremi  vrsticami , ki  dolo?ajo  kontrolne  to?ke  kosa
+% sestavljene  krivulje
 
 A = size(D);
 n = A(1);
