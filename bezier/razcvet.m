@@ -20,6 +20,10 @@ function D = razcvet( b,t )
 %za i > n-j+2 so NaN)
 
 n = length(b)-1;
+if length(t) ~= n
+    msg = 'Nepravilna dolzina t';
+    error(msg)
+end
 D = NaN(n+1,n+1);
 for i=0:n
     D(1,i+1) = b(i+1);
