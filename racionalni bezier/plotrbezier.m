@@ -10,6 +10,7 @@ function plotrbezier (B,w,t)
 % B matrika velikosti n+1 x d, ki predstavlja kontrolne
 % to?ke Bezierjeve krivulje stopnje n v
 % d- dimenzionalnem prostoru ,
+% w seznam utezi dolzine n 
 % t seznam parametrov dol?ine k, pri katerih ra?unamo
 % vrednost Bezierjeve krivulje
 
@@ -17,6 +18,7 @@ A = size(B);
 n = A(1)-1;
 q = zeros(n,2);
 
+%farinove tocke
 for i =0:n-1  
 
     q(i+1,:) = w(i+1)/(w(i+1)+w(i+1+1)).*B(i+1,:) + w(i+1+1)/(w(i+1)+w(i+1+1)).*B(i+1+1,:);  

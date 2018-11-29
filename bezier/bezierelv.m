@@ -26,8 +26,9 @@ Be = zeros(n+1+k,d);
 Be(1,:) = B(1,:);
 Be(end,:) = B(end,:);
 
+
 for i = 1:n+k-1
-    temp = [0,0];
+    temp = zeros(1,d);
     for j = 0:n
         if i -j < 0 | i-j > k
             continue
