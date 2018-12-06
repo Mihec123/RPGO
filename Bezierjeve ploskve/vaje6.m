@@ -2,16 +2,22 @@
 addpath('..\bezier')
 addpath('..\Bernsteinovi polinomi')
 
-% Bx = [0 3 5 6;1 4 5 7; 0 3 5 6];
-% By = [-1 -2 -1 -2;1 2 1 2;5 5 6 5];
-% Bz = [-3 -2 0 -5; 3 6 3 2; -1 4 -2 8];
-% 
-% u = linspace(0,1,50);
-% v = linspace(0,1,50);
-% %[bx,by,bz] = bezier2(Bx ,By ,Bz,linspace(0,1),linspace(0,1));
-% %fajn bi blo optimizirat tko da das vse u-je v eno for zanko
-% 
-% [bx,by,bz] = plotBezier2(Bx,By,Bz,u,v);
+
+%naloga 11
+
+Bx = [0 3 5 6;1 4 5 7; 0 3 5 6];
+By = [-1 -2 -1 -2;1 2 1 2;5 5 6 5];
+Bz = [-3 -2 0 -5; 3 6 3 2; -1 4 -2 8];
+
+u = linspace(0,1,50);
+v = linspace(0,1,50);
+% [bx,by,bz] = bezier2(Bx ,By ,Bz,linspace(0,1),linspace(0,1));
+%fajn bi blo optimizirat tko da das vse u-je v eno for zanko
+
+[bx,by,bz] = plotBezier2(Bx,By,Bz,u,v);
+
+
+%naloga12
 
 m = 5;
 n=6;
@@ -30,7 +36,9 @@ P = [x(:) y(:) z(:)];
 
 x = linspace(0,1,50);
 y = linspace(0,1,50);
-[bx,by,bz] = plotBezier2(Bx,By,Bz,x,y);
-bz(1:10:end,1:10:end)
 z = peaks(50);
+figure;
+peaks(50);
+[bx,by,bz] = plotBezier2(Bx,By,Bz,x,y,false);
+bz(1:10:end,1:10:end)
 napaka = max(max(bz-z))
