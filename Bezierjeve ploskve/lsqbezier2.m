@@ -21,6 +21,7 @@ function [Bx,By,Bz] = lsqbezier2(m,n,P,u,v)
 %       kontrolne  to?ke  Bezierjeve  ploskve  iz
 %       tenzorskega  produkta , ki se po  metodi  najmanj?ih
 %       kvadratov  najbolje  prilega  podatkom
+addpath('..\Bernsteinovi polinomi')
 
 vel = size(P);
 l = vel(1);

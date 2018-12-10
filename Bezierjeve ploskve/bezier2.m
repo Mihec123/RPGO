@@ -1,22 +1,23 @@
 function [bx,by,bz] = bezier2(Bx ,By ,Bz,u,v)
 % Opis:
-%   bezier2  vrne  toèke  na  Bezierjevi  ploskvi  iz  tenzorskega
+%   bezier2  vrne  to?ke  na  Bezierjevi  ploskvi  iz  tenzorskega
 %   produkta
 %
 % Definicija:
 %   [bx ,by,bz] = bezier2(Bx,By ,Bz,u,v)
 %
 % Vhodni  podatki:
-%   Bx , By, Bz    matrike  velikosti n+1 x m+1, ki  doloèajo
-%       koordinate  kontrolnih  toèk ,
-%   u, v vrstici  dolžine M in N, ki  predstavljata
+%   Bx , By, Bz    matrike  velikosti n+1 x m+1, ki  dolo?ajo
+%       koordinate  kontrolnih  to?k ,
+%   u, v vrstici  dol?ine M in N, ki  predstavljata
 %       parametre v smereh u in v.
 %
 % Izhodni  podatki:
 %   bx , by, bz    matrike  velikosti N x M, ki  predstavljajo
-%       toèke  na  Bezierjevi  ploskvi:
-%       [bx(J,I) by(J,I) bz(J,I)] je  toèka  pri
+%       to?ke  na  Bezierjevi  ploskvi:
+%       [bx(J,I) by(J,I) bz(J,I)] je  to?ka  pri
 %       parametrih u(I) in v(J).
+addpath('..\bezier')
 
 M = length(u);
 N = length(v);

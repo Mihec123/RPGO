@@ -1,6 +1,4 @@
 %vaje6
-addpath('..\bezier')
-addpath('..\Bernsteinovi polinomi')
 
 
 %naloga 11
@@ -34,11 +32,9 @@ P = [x(:) y(:) z(:)];
 %bz(1:10:end,1:10:end) po diagonali =
 %[0.0014,0.7558,-0.3112,3.6594,0.0753];
 
-x = linspace(0,1,50);
-y = linspace(0,1,50);
-z = peaks(50);
-figure;
-peaks(50);
-[bx,by,bz] = plotBezier2(Bx,By,Bz,x,y,false);
-bz(1:10:end,1:10:end)
-napaka = max(max(bz-z))
+K = 50;
+[x,y,z] = peaks(K);
+u = linspace(0,1,K);
+v = linspace(0,1,K);
+[bx,by,bz] = bezier2(Bx,By,Bz,u,v);
+norm(bz(:)-z(:),Inf)

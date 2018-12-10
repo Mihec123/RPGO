@@ -33,6 +33,9 @@ if kontrolni
     s = surf(Bx,By,Bz);
     set(s,'FaceColor','none')
 end
+zlabel('z-os')
+xlabel('x-os')
+ylabel('y-os')
 hold off;
 
 end
