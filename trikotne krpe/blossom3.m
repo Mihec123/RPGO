@@ -1,6 +1,6 @@
 function b = blossom3(B,U)
 % Opis:
-%   blossom3  izraèuna  razcvet  polinoma  dveh  spremenljivk
+%   blossom3  izra?una  razcvet  polinoma  dveh  spremenljivk
 %
 % Definicija:
 %   b = blossom3(B,U)
@@ -9,16 +9,16 @@ function b = blossom3(B,U)
 %   B   matrika  velikosti n+1 x n+1, ki  predstavlja
 %       koeficiente  polinoma  dveh  spremenljivk  stopnje n v
 %       Bezierjevi  obliki (element  matrike  na  mestu (i,j),
-%       j  <= n+2-i, doloèa  koeficient  polinoma z indeksom
+%       j  <= n+2-i, dolo?a  koeficient  polinoma z indeksom
 %       (n+2-i-j, j-1, i-1)),
 %   u   matrika  velikosti n x 3, v kateri  vrstice
-%       predstavljavo  baricentriène  koordinate  toèk  glede
+%       predstavljavo  baricentri?ne  koordinate  to?k  glede
 %       na  domenski  trikotnik , za  katere  izvajamo  razcvet
 %       polinoma
 %
 % Izhodni  podatek:
-%   b   vrednost  razcveta  polinoma , doloèenega z matriko B,
-%       v toèkah , doloèenih z matriko u
+%   b   vrednost  razcveta  polinoma , dolo?enega z matriko B,
+%       v to?kah , dolo?enih z matriko u
 
 [n,m] = size(B);
 n =n-1;
