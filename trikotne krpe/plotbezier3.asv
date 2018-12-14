@@ -30,11 +30,13 @@ tri = delaunay(koordinate(:,1),koordinate(:,2));
 n = d;
 tri1 = zeros((n-1)^2,3);
 indeks = 1;
-pricakovana = ((1/(n-1))^2) / 4; % se na pol smo dal zarad numericnih napak k ns v resnic zanima samo ce je blizi 0 k pravi pricakovani ploscini
+pricakovana = ((1/(n-1))^2) / 2;
+pricakovana
 for i = 1: length(tri)
-    x = [koordinate(tri(i,1),1),koordinate(tri(i,2),1),koordinate(tri(i,3),1)];
-    y = [koordinate(tri(i,1),2),koordinate(tri(i,2),2),koordinate(tri(i,3),2)];
+    x = [koordinate(tri(i),1),koordinate(tri(2),1),koordinate(tri(3),1)];
+    y = [koordinate(tri(1),2),koordinate(tri(2),2),koordinate(tri(3),2)];
     ploscina = polyarea(x,y);
+    ploscina
 
     if ploscina < pricakovana
         continue
@@ -45,11 +47,11 @@ for i = 1: length(tri)
 end 
 
 
-figure;
-hold on;
-trisurf(tri1,b(:,1),b(:,2),b(:,3));
-%s = surf(Bx,By,Bz);
-%set(s,'FaceColor','none')
-hold off;
+% figure;
+% hold on;
+% trisurf(tri1,b(:,1),b(:,2),b(:,3));
+% s = surf(Bx,By,Bz);
+% set(s,'FaceColor','none')
+% hold off;
 end
 

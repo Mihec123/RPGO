@@ -24,7 +24,7 @@ function b = bezier3 (Bx ,By ,Bz ,U)
 
 n = n-1;
 
-b = zeros(n,3);
+b = zeros(n1,3);
 
 for i = 1:n1
     for k = 1:3
