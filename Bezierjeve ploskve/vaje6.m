@@ -37,4 +37,5 @@ K = 50;
 u = linspace(0,1,K);
 v = linspace(0,1,K);
 [bx,by,bz] = bezier2(Bx,By,Bz,u,v);
+plotBezier2(Bx,By,Bz,u,v,false);
 norm(bz(:)-z(:),Inf)

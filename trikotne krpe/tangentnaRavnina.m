@@ -14,8 +14,8 @@ function [ Tocke,enacba ] = tangentnaRavnina( Bx,By,Bz,U )
 % Izhodni podatek :
 % Tocke matrika 3 x 3 v kateri vsaka vrstica predstavlja eno tocko, ki
 %       doloca tangentno ravnino
-% enacba matrika 1 x 3 v kateri so koeficienti enacbe ravnine v obliki
-%       z = a*x + b*y +c (enacba = [ a, b ,c])
+% enacba matrika 1 x 4 v kateri so koeficienti enacbe ravnine v obliki
+%       ax +by+cz =d (enacba = [ a, b ,c,d])
 
 Tocke = zeros(3,3);
 
@@ -42,8 +42,29 @@ for h = 1:3
     Tocke(3,h) = B(2,1);
 end
 
+%enacba ravnine
 
-temp = [ones(3,1), Tocke(:,1:2)] \ Tocke(:,3);
-enacba = [temp(2) temp(1) temp(3)];
+V1 = Tocke(2,:) - Tocke(1,:);
+V2 = Tocke(3,:) - Tocke(2,:);
+koef = cross(V1,V2);
+d = sum(koef.*Tocke(1,:));
+
+enacba = [koef,d];
+
+
+%narisemo
+
+warning('slika je narisana glede na trikotnik podan s tockami (0,0) (1,0) (0,1)');
+z = @(x,y) (enacba(4) - enacba(1)*x - enacba(2)*y)/enacba(3);
+[Tri,U] = trimeshgrid(10);
+b = bezier3(Bx,By,Bz,U);
+
+
+figure;
+hold on;
+trisurf(Tri,b(:,1),b(:,2),b(:,3));
+ezmesh(z);
+plot3(Tocke(:,1),Tocke(:,2),Tocke(:,3),'ro')
+hold off;
 end
 

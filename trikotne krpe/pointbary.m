@@ -1,6 +1,15 @@
 function U = pointbary( tocke,T )
-%UNTITLED Summary of this function goes here
-%   Detailed explanation goes here
+% Opis :
+% pointbary izracuna baricentricne koordiante tocke glede na trikotnik T
+% Definicija:
+%   U = pointbary( tocke,T )
+% Vhodni podatki:
+%   tocke matrika velikosti 1 x 2 ([x,y] koordinate)
+%   T trikotnik podan z matriko velikosti 3 x 2 kjer vsaka vrstica
+%       predstavlja ogljisce trikotnika v R^2
+% Izhodni podatek :
+%   U baricentricne koordinate tocke
+
 
 [n,m] = size(tocke);
 

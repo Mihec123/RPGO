@@ -1,5 +1,5 @@
 %vaje5
-
+addpath('../bezier')
 %naloga9
 
 B = [0 0;2 3; 5 0; 3 -1; 2 -1];
@@ -29,6 +29,7 @@ for i=2:N
     C{i} = wetemp';
 end
 
+figure;
 hold on;
 axis equal
 for i = 1:N

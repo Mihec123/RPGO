@@ -1,6 +1,14 @@
 function U = vectorbary( vektor,T )
-%UNTITLED2 Summary of this function goes here
-%   Detailed explanation goes here
+% Opis :
+% vectorbary izracuna baricentricne koordiante vektorja glede na trikotnik T
+% Definicija:
+%   U = pointbary( vektor,T )
+% Vhodni podatki:
+%   vektor matrika velikosti 1 x 2 ([x,y] koordinate)
+%   T trikotnik podan z matriko velikosti 3 x 2 kjer vsaka vrstica
+%       predstavlja ogljisce trikotnika v R^2
+% Izhodni podatek :
+%   U baricentricne koordinate vektorja
 
 
 [n,m] = size(vektor);
