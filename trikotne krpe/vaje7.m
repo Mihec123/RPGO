@@ -1,8 +1,10 @@
 %vaje7 12.12.2018
 
 
-B = [2 5 -1 0; 1 3 -4 NaN; 0 0 NaN NaN; 1 NaN NaN NaN];
+%B = [2 5 -1 0; 1 3 -4 NaN; 0 0 NaN NaN; 1 NaN NaN NaN];
 %B dimenzije n+1 x n+1
+
+B = [2 5 -1 0; 1 3 -4 nan;0 0 nan nan; 1 nan nan nan];
 
 T = [0 0;5 1;3 3];
 
