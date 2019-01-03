@@ -39,6 +39,28 @@
 \end{titlepage}
 
 
+\section{Decasteljou}
+
+Naj bo $T$ trikotnik v ravnini, ter naj bodo $(r,s,t)$ baricentrične koordinate točke $P$ glede na trikotnik $T$. V tem primeru lahko vsak polinom stopnje $d$ definiran nad trikotnikom $T$ zapišemo v Bernsteinovi bazi kot
+$$p(r,\\s,\\t) = \sum_{i=0}^{d}\sum_{j=0}^{i}b_{d-i,i-j,j}B_{d-i,i-j,j}^{d},$$
+kjer velja
+$$B_{i,j,k}^{d}(r,s,t) = \frac{d!}{i!j!k!}rîs^jt^k.$$
+
+Tako podan polinom lahko evaluiramo s pomočjo deCasteljouvovega algoritma
+\begin{algoritm}
+Naj bo p polinom stopnje $d$ podan v Bezierjevi obliki, ter naj bodo $ r,s,t$ baricentirčne koordinate točke za katere velja $r \geq s,r \geq t$, tedaj lahko s sledečim algoritmom izračunamo vrenost polinoma p v točki $(r,s,t)$
+\begin{lstlisting}[escapeinside={(*}{*)}]
+for k=1:d
+  for i=0:d-k
+      for j=0:i
+          (*$b_{d-i-k,i-j,j}^k = r*b_{d-i-k+1,i-j,j}^{k-1}+s*b_{d-i-k,i-j+1,j}^{k-1} +r*b_{d-i-k,i-j,j+1}^{k-1}  $*)
+(*$p(r,s,t) = b_{0,0,0}^{d}$*)
+\end{lstlisting}
+\end{algoritm}
+
+Ta algoritem potrebuje $d(d+1)(d+2)/2$ operacij.
+
+
 
 
 \section{Modificirana Bernstein-Bezierjeva reprezentacija}
@@ -68,7 +90,7 @@ Tu je potrebno biti pozoren na to, da ne delimo z $0$. Torej je treba ločiti pr
 V Primeru ko razvijamo po $r$ dobimo algoritem
 
 \begin{algoritm}
-Naj bo p polinom stopnje n podan v MBB obliki, ter naj bodo $ r,s,t$ baricentirčne koordinate točke za katere velja $r \geq s,r \geq t$, tedaj lahko s ledečim algoritmom izračunamo vrenost polinoma p v točki $(r,s,t)$
+Naj bo p polinom stopnje $n$ podan v MBB obliki, ter naj bodo $ r,s,t$ baricentirčne koordinate točke za katere velja $r \geq s,r \geq t$, tedaj lahko s ledečim algoritmom izračunamo vrenost polinoma p v točki $(r,s,t)$
 \begin{lstlisting}[escapeinside={(*}{*)}]
 sr = s/r,	 tr= s/r
 A = (*$c_{0,n,0}$*);

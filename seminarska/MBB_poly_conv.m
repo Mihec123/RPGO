@@ -46,17 +46,33 @@ B_new = nan(n);
 
 for i = 1:n
     for j = 1:m+2-i
-        B_new(i,j) = factorial(m)/(factorial(m+2-i-j)*factorial(j-1)*factorial(i-1))*B(i,j);
+        B_new(i,j) = factorial_divison(m,m+2-i-j,j-1,i-1)*B(i,j);
     end
 end
-        
-        
+      
 
 
+end
 
 
+function fact = factorial_divison( n,i,j,k )
 
+%poiscemo najvecjo od stevil i,j,k
 
+if i >= j && i >= k
+    %i najvecji
+    fact = prod([n:-1:i+1])/(factorial(j)*factorial(k));
+    
+    
+elseif j >= i && j >=k 
+    %j najvecji
+    fact = prod([n:-1:j+1])/(factorial(i)*factorial(k));
+    
+else
+    %k najvecji
+    fact = prod([n:-1:k+1])/(factorial(j)*factorial(i));
+
+end
 
 end
 
