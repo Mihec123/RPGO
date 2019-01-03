@@ -115,4 +115,48 @@ Potrebno je povedati še, kako se odločimo katero verzijo algoritma bomo vzeli.
 Zgornji algoritem deluje za regijo ena, v kateri se nahajamo če $r \geq s,r \geq t$. S spremembami po kateri spremenljivki razvijamo pa pokrijemo tudi regiji $2$ in $3$. Pri čemer je regija $2$ določena z $s > r, s \geq t$ in razvijamo po $s$, regija 3 pa z $t > r, t>s$ pri čemer razvijamo po $t$.
 
 
+\section{Polinom v Taylorjevi vrsti}
+
+Naj bo T trikotnik. Naj bo $p$ polinom stopnje $n$ definiran na $T$. Polinom $p$ lahko zapišemo v Taylorjevi obliki kot 
+$$p(u,v) = \sum_{i = 0}^n{\sum_{j=0}^{n-i}{a_{i,j}u^iv^j }}.$$To obliko bomo krajše klicali $TAY$.  Vrednost polinoma $p$ v točki $(u,v)$ lahko izračunamo s sledečim algoritmom.
+
+\begin{algoritm}
+\begin{lstlisting}[escapeinside={(*}{*)}]
+
+p = (*$a_{0,n}$*)
+for i = 1:d
+    A = (*$a_{i,n-i}$*)
+    for j = 1:i
+        A = A * u + (*$a_{i-j,n-i}$*)
+    end
+    p = p * v + A
+end
+\end{lstlisting}
+\end{algoritm}
+
+Ta postopek potrebuje $(n^2+3n)/2$ množenj.
+
+
+\section{Polinomi na tetraedrih}
+
+Naj bo T tetraeder. Za vsako točko $U$ iz $T$ naj bodo $(r,s,t,u)$ pripadajoče Baricentrične koordinate glede na $T$.  Naj bo $p$ polinom stopnje $n$ definiran na $T$. Polinom $p$ lahko zapišemo v modificirani Bernstein-Bezierjevi obliki kot 
+$$p(r,s,t,u) = \sum_{i = 0}^n{\sum_{j=0}^{i}{\sum_{k = 0}^{j}{c_{d-i,i-j,j-k,k} r^{d-i} s^{i-j} t^{j-k} u^k}}}.$$
+
+%zavrtimo točke tako da je računanje efficient
+
+Vrednost polinoma $p$ v točki $(r,s,t,u)$ lahko izračunamo s sledečim algoritmom.
+
+\begin{algoritm}
+\begin{lstlisting}[escapeinside={(*}{*)}]
+
+TODO
+
+\end{lstlisting}
+\end{algoritm}
+
+Ta postopek potrebuje $(n^3+ 6d^2 + 17d)/6$ množenj in 3 deljenja.
+
+
+
+
 \end{document}
