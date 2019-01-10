@@ -19,6 +19,7 @@
 \institute{Fakulteta za matematiko in fiziko}
 \date{2019}
  
+\usetheme{Berlin}
  
  
 \begin{document}
@@ -27,16 +28,24 @@
 
 \begin{frame}
 \frametitle{Polinom v Bezierjevi obliki}
-
+Naj bo $T$ trikotnik, potem polinom v baricentričnih koordinatah $(r,s,t)$ lahko zapišemo kot
 $$p(r,s,t) = \sum_{i=0}^{d}\sum_{j=0}^{i}b_{d-i,i-j,j}B_{d-i,i-j,j}^{d},$$
 kjer je
-$$B_{i,j,k}^{d}(r,s,t) = \frac{d!}{i!j!k!}r^is^jt^k.$$
+$$B_{i,j,k}^{d}(r,s,t) = \frac{d!}{i!j!k!}r^is^jt^k$$
+Bernsteinov polinom stopnje $d$.
 
 \end{frame}
 
-\begin{frame}
-\frametitle{decasteljou}
-
+\begin{frame}[fragile]
+\frametitle{de Casteljau}
+\begin{lstlisting}[escapeinside={(*}{*)}]
+for k=1:d
+  for i=0:d-k
+      for j=0:i
+          (*$b_{d-i-k,i-j,j}^k = r*b_{d-i-k+1,i-j,j}^{k-1}+s*b_{d-i-k,i-j+1,j}^{k-1}$*) 
+          	+(*$r*b_{d-i-k,i-j,j+1}^{k-1}  $*)
+(*$p(r,s,t) = b_{0,0,0}^{d}$*)
+\end{lstlisting}
 
 
 \end{frame}
@@ -44,44 +53,92 @@ $$B_{i,j,k}^{d}(r,s,t) = \frac{d!}{i!j!k!}r^is^jt^k.$$
 
 
 \begin{frame}
-\frametitle{MBB oblika}
-
+\frametitle{Modificirana Bernstein-Bezierjeva oblika polinoma}
 $$p(r,s,t) = \sum_{i=0}^{d}\sum_{j=0}^{i}c_{d-i,i-j,j}r^{d-i}s^{i-j}t^j,$$
-tako da za koeficiente $c_{d-i,i-j,j}$ vzamemo
+kjer za $c_{d-i,i-j,j}$ vzamemo
 $$c_{d-i,i-j,j} = \frac{d!}{(d-i)!(i-j)!j!}b_{d-i,i-j,j}, \quad j=0,\ldots, i; i = 0,\ldots,d.$$
 \end{frame}
 
 
 \begin{frame}
-\frametitle{MBB oblika}
+\frametitle{Modificirana Bernstein-Bezierjeva oblika polinoma}
+Razdelitev domenskega trikotnika v primeru, ko je $d=2$
 \begin{center}
 \includegraphics[width=.9\linewidth]{graf.png}
 \end{center}
 
 \end{frame}
 
-\begin{frame}
-\frametitle{algoritm MBB}
+\begin{frame}[fragile]
+\frametitle{Modificiran Bernstein-Bezierjev algoritem}
+\begin{lstlisting}[escapeinside={(*}{*)}]
+sr = s/r,	 tr= s/r
+A = (*$c_{0,n,0}$*);
+for i = 1:n
+    B = (*$c_{0,n-i,i}$*)
+    for j = i:-1:1
+        B = B*tr + (*$c_{i-j+1,n-i,j-1}$*);
+    end
+    A = A *sr +B;
+end
+p(r,s,t) = A(*$r^n$*)
+\end{lstlisting}
+
+
+
 \end{frame}
 
 \begin{frame}
 \frametitle{Taylor}
+Zapis polinoma v Taylorjevi obliki
 $$p(u,v) = \sum_{i = 0}^n{\sum_{j=0}^{n-i}{a_{i,j}u^iv^j }}$$
 \end{frame}
 
 
 
-\begin{frame}
-\frametitle{algoritem}
+\begin{frame}[fragile]
+\frametitle{Taylorjev algoritem}
+
+\begin{lstlisting}[escapeinside={(*}{*)}]
+p = (*$a_{0,n}$*)
+for i = 1:d
+    A = (*$a_{i,n-i}$*)
+    for j = 1:i
+        A = A * u + (*$a_{i-j,n-i}$*)
+    end
+    p = p * v + A
+end
+\end{lstlisting}
+
+
 \end{frame}
 
 \begin{frame}
-\frametitle{tabelca}
+\frametitle{Primerjava metod}
+
+\begin{center}
+\includegraphics[width=1.0\linewidth]{tabelca.PNG}
+\end{center}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Polinom v treh spremenljivkah}
+Naj bo T tetraeder v $\mathbb{R}^3$ in naj bodo $(r,s,t,u)$ pripadajoče baricentrične koordinate točke $P$. Potem lahko polinom v točki $P$ zapišemo kot
+$$p(r,s,t,u) = \sum_{i=0}^{d}\sum_{j=0}^{i}\sum_{k=0}^{j}c_{d-i,i-j,j-k,k}r^{d-i}s^{i-j}t^{j-k}u^{k}.$$
 \end{frame}
 
 
 \begin{frame}
-\frametitle{tetraeder}
+\frametitle{Polinom v treh spremenljivkah}
+\begin{center}
+\includegraphics[width=0.7\linewidth]{tetraeder.PNG}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Algoritem za polinom v treh spremenljivkah}
 \end{frame}
 
 
