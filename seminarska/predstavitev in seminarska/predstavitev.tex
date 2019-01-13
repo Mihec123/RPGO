@@ -37,7 +37,8 @@ Bernsteinov polinom stopnje $d$.
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{de Casteljau}
+\frametitle{De Casteljau}
+\begin{block}{De Casteljaujev algoritem}
 \begin{lstlisting}[escapeinside={(*}{*)}]
 for k=1:d
   for i=0:d-k
@@ -46,14 +47,15 @@ for k=1:d
           	+(*$r*b_{d-i-k,i-j,j+1}^{k-1}  $*)
 (*$p(r,s,t) = b_{0,0,0}^{d}$*)
 \end{lstlisting}
-
-
+\end{block}
+Algoritem potrebuje $d(d+1)(d+2)/2$ množenj.
 \end{frame}
 
 
 
 \begin{frame}
 \frametitle{Modificirana Bernstein-Bezierjeva oblika polinoma}
+Polinom v Bernsteinovi obliki lahko zapišemo kot
 $$p(r,s,t) = \sum_{i=0}^{d}\sum_{j=0}^{i}c_{d-i,i-j,j}r^{d-i}s^{i-j}t^j,$$
 kjer za $c_{d-i,i-j,j}$ vzamemo
 $$c_{d-i,i-j,j} = \frac{d!}{(d-i)!(i-j)!j!}b_{d-i,i-j,j}, \quad j=0,\ldots, i; i = 0,\ldots,d.$$
@@ -71,6 +73,7 @@ Razdelitev domenskega trikotnika v primeru, ko je $d=2$
 
 \begin{frame}[fragile]
 \frametitle{Modificiran Bernstein-Bezierjev algoritem}
+\begin{block}{VS algoritem}
 \begin{lstlisting}[escapeinside={(*}{*)}]
 sr = s/r,	 tr= s/r
 A = (*$c_{0,n,0}$*);
@@ -78,12 +81,11 @@ for i = 1:n
     B = (*$c_{0,n-i,i}$*)
     for j = i:-1:1
         B = B*tr + (*$c_{i-j+1,n-i,j-1}$*);
-    end
     A = A *sr +B;
-end
 p(r,s,t) = A(*$r^n$*)
 \end{lstlisting}
-
+\end{block}
+Algoritem potrebuje $(n^2+5n)/2$ množenj
 
 
 \end{frame}
@@ -99,6 +101,7 @@ $$p(u,v) = \sum_{i = 0}^n{\sum_{j=0}^{n-i}{a_{i,j}u^iv^j }}$$
 \begin{frame}[fragile]
 \frametitle{Taylorjev algoritem}
 
+\begin{block}{Taylorjev algoritem}
 \begin{lstlisting}[escapeinside={(*}{*)}]
 p = (*$a_{0,n}$*)
 for i = 1:d
@@ -109,7 +112,8 @@ for i = 1:d
     p = p * v + A
 end
 \end{lstlisting}
-
+\end{block}
+Algoritem potrebuje $(n^2+3n)/2$ množenj.
 
 \end{frame}
 
@@ -119,6 +123,13 @@ end
 \begin{center}
 \includegraphics[width=1.0\linewidth]{tabelca.PNG}
 \end{center}
+
+\begin{itemize}
+\item dCas: De Casteljoujev algoritem
+\item VS: algoritem za polinom v MBB olbiki
+\item VSC: VS $+$ pretvorba baz
+\item Tay: Taylorjev algoritem
+\end{itemize}
 
 
 \end{frame}

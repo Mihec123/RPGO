@@ -16,6 +16,7 @@
 \newtheorem{theorem}{Izrek}[section]
 \newtheorem{corollary}{Corollary}[theorem]
 \newtheorem{lemma}[theorem]{Lema}
+\newtheorem{trditev}{Trditev}[section]
 
 \setlength\parindent{0pt}
 
@@ -39,16 +40,16 @@
 \end{titlepage}
 
 
-\section{Decasteljou}
+\section{De Casteljau}
 
-Naj bo $T$ trikotnik v ravnini, ter naj bodo $(r,s,t)$ baricentrične koordinate točke $P$ glede na trikotnik $T$. V tem primeru lahko vsak polinom stopnje $d$ definiran nad trikotnikom $T$ zapišemo v Bernsteinovi bazi kot
+Naj bo $T$ trikotnik v ravnini, ter naj bodo $(r,s,t)$ baricentrične koordinate točke $P$ glede na trikotnik $T$. V tem primeru lahko vsak polinom stopnje $d$, definiran nad trikotnikom $T$, zapišemo v Bernsteinovi bazi kot
 $$p(r,\\s,\\t) = \sum_{i=0}^{d}\sum_{j=0}^{i}b_{d-i,i-j,j}B_{d-i,i-j,j}^{d},$$
 kjer velja
-$$B_{i,j,k}^{d}(r,s,t) = \frac{d!}{i!j!k!}rîs^jt^k.$$
+$$B_{i,j,k}^{d}(r,s,t) = \frac{d!}{i!j!k!}r^{i}s^jt^k.$$
 
-Tako podan polinom lahko evaluiramo s pomočjo deCasteljouvovega algoritma
-\begin{algoritm}
-Naj bo p polinom stopnje $d$ podan v Bezierjevi obliki, ter naj bodo $ r,s,t$ baricentirčne koordinate točke za katere velja $r \geq s,r \geq t$, tedaj lahko s sledečim algoritmom izračunamo vrenost polinoma p v točki $(r,s,t)$
+Tako podan polinom lahko evaluiramo s pomočjo De Casteljaujevega algoritma
+\begin{algoritm}[De Casteljau]
+Naj bo $p$ polinom stopnje $d$ podan v Bezierjevi obliki, ter naj bodo $ r,s,t$ baricentirčne koordinate točke $P$, tedaj lahko s sledečim algoritmom izračunamo vrenost polinoma p v točki $P$.
 \begin{lstlisting}[escapeinside={(*}{*)}]
 for k=1:d
   for i=0:d-k
@@ -58,8 +59,14 @@ for k=1:d
 \end{lstlisting}
 \end{algoritm}
 
-Ta algoritem potrebuje $d(d+1)(d+2)/2$ operacij.
+\begin{trditev}
+\label{decast}
+De Casteljaujev algoritem potrebuje $d(d+1)(d+2)/2$ množenj.
+\end{trditev}
 
+\begin{proof}
+V notranji zanki na vsakem koraku naredimo $3$ množenja. Notranja zanka se izvede $i+1$ krat. To pomeni da v drugi zanki naredimo $3(i+1)$ množenj. Vsota $\sum_{i=0}^{d-k}3(i+1) = \frac{3}{2}(d-k+1)*(d-k+2)$. Za celotno število korakov je potrebno sešteti še $\sum_{k=1}^{d}\frac{3}{2}(d-k+1)*(d-k+2) = d(d+1)(d+2)/2$.
+\end{proof}
 
 
 
@@ -70,7 +77,7 @@ potem lahko tak polinom enostavno prepišemo v obliko
 $$p(r,\\s,\\t) = \sum_{i=0}^{d}\sum_{j=0}^{i}c_{d-i,i-j,j}r^{d-i}s^{i-j}t^j,$$
 tako da za koeficiente $c_{d-i,i-j,j}$ vzamemo
 $$c_{d-i,i-j,j} = \frac{d!}{(d-i)!(i-j)!j!}b_{d-i,i-j,j}, \quad j=0,\ldots, i;\\ i = 0,\ldots,d.$$
-Tej obliki polinoma rečemo modificirana Bernstein-Bezierjeva oblika ali krajše MBB. Pokazati želimo, da se polinom v MBB obliki, da evaluirati hitreje kakor v klasični Bezierjevi obliki. Ideja, ki se skriva v ozadju je ta, da lahko p zapišemo v gnezdeni obliki. Poglejmo si na primeru polinomov stopnje $2$. Označimo kontrolne točke na sledeči način:
+Tej obliki polinoma rečemo modificirana Bernstein-Bezierjeva oblika ali krajše MBB. Pokazati želimo, da se polinom v MBB obliki, da evaluirati hitreje kakor v klasični Bezierjevi obliki. Ideja, ki se skriva v ozadju je ta, da lahko $p$ zapišemo v gnezdeni obliki. Poglejmo si na primeru polinomov stopnje $2$. Označimo kontrolne točke na sledeči način:
 
 \begin{center}
 \includegraphics[width=.9\linewidth]{graf.png}
@@ -86,11 +93,19 @@ p(r,s,t) &= \sum_{i=0}^{2}\sum_{j=0}^{i}c_{2-i,i-j,j}r^{2-i}s^{i-j}t^j \nonumber
 &= r^2(\frac{s}{r}(c_2+\frac{s}{r}c_4+\frac{t}{r}c_5)+\frac{t}{r}(\frac{t}{r}c_6+c_3)+c_1) \nonumber
 \end{align}
 
-Tu je potrebno biti pozoren na to, da ne delimo z $0$. Torej je treba ločiti primere glede na to v katerem odseku trikotnika se naše baricentrične koordinate nahajajo in podobno razvijemo po spremenljivki $s$ ali $t$.
-V Primeru ko razvijamo po $r$ dobimo algoritem
+Tu je potrebno biti pozoren na to, da ne delimo z $0$. Temu se lahko izognemo tako, da ločimo primere glede na to kje v kontrolnem trikotniku se nahajamo. Ločimo $3$ primere kot je prikazano na sliki.
+
+\begin{center}
+\includegraphics[width=.3\linewidth]{graf1.png}
+\end{center}
+
+V regiji $1$ se nahajajo točke, katerih baricentrične koordinate ustrezajo lastnosti $r \geq s \wedge r \geq t$. V regiji $2$ se nahajajo točke, katerih baricentrične koordinate ustrezajo lastnosti $s > r \wedge s \geq t$. V regiji $3$ pa se nahajajo točke, katerih baricentrične koordinate ustrezajo lastnosti $t>r \wedge t>s$.
+S tem poskrbimo, da ne delimo z $0$, hkrati pa se izognemo še deljenju z zelo majhnimi števili, ki bi jih dobili pri baricentričnih koordinatah blizu roba.
+
+Zgornji primer lahko posplošimo na polinome poljubnih dimenzij.
 
 \begin{algoritm}
-Naj bo p polinom stopnje $n$ podan v MBB obliki, ter naj bodo $ r,s,t$ baricentirčne koordinate točke za katere velja $r \geq s,r \geq t$, tedaj lahko s ledečim algoritmom izračunamo vrenost polinoma p v točki $(r,s,t)$
+Naj bo p polinom stopnje $n$ podan v MBB obliki, ter naj bodo $ r,s,t$ baricentirčne koordinate točke za katere velja $r \geq s,r \geq t$, tedaj lahko s sledečim algoritmom izračunamo vrenost polinoma p v točki $(r,s,t)$
 \begin{lstlisting}[escapeinside={(*}{*)}]
 sr = s/r,	 tr= s/r
 A = (*$c_{0,n,0}$*);
@@ -105,14 +120,21 @@ p(r,s,t) = A(*$r^n$*)
 \end{lstlisting}
 \end{algoritm}
 
-Zgornji algoritem potrebuje $(n^2+5n)/2$ množenj, $2$ deljenj, ter $n-1$ množenj za izračun $r^n$, kar lahko v splošnem naredimo tudi z manj operacijami (npr. za algoritmom kvadriraj in zmnoži).
-Potrebno je povedati še, kako se odločimo katero verzijo algoritma bomo vzeli.
+\begin{trditev}
+Algoritem za izračun vrednosti polinoma v MBB obliki potrebuje $(n^2+5n)/2$ množenj.
+\end{trditev}
+\begin{proof}
+Sledimo postopku iz dokaza trditve \ref{decast}.
+\end{proof}
+Tu je potrebno povedati, da se lahko $r^n$ izračuna hitreje, kot z $n-1$ množenji, torej je samo število operacij v algoritmu še nekoliko manjše. Podobno lahko izpeljemo tudi algoritme za ostala območja.
 
-\begin{center}
-\includegraphics[width=.3\linewidth]{graf1.png}
-\end{center}
 
-Zgornji algoritem deluje za regijo ena, v kateri se nahajamo če $r \geq s,r \geq t$. S spremembami po kateri spremenljivki razvijamo pa pokrijemo tudi regiji $2$ in $3$. Pri čemer je regija $2$ določena z $s > r, s \geq t$ in razvijamo po $s$, regija 3 pa z $t > r, t>s$ pri čemer razvijamo po $t$.
+\vspace{3mm}
+
+Pojavlja se še vprašanje zahtevnosti pretvorbe polinoma v MBB obliko. Če se lotimo naivno in na novo poračunamo vse koeficiente potem nas ta postopek stane $O(n^3)$ operacij. Kar lahko povzroči to, da je časovna zahtevnost, ki jo potrebujemo za izračun ene točke večja, kot če bi uporabili navadni De Casteljaujev algoritem. Še vedno pa bo veljalo, da v primeru če želimo izračunati veliko točk na istem polinomu MBB algoritem deluje veliko hitreje.
+
+Druga možnost, ki jo imamo pa je ta, da si v naprej poračunamo vrednosti s katerimi moramo množiti koeficiente polinoma. To je potrebno za vsako dimenzijo storiti le enkrat, nato pa za izračun novih koeficientov potrebujemo le še $O(n^2)$ operacij. Na ta način je MBB algoritem vedno bolj učinkovit kot De Casteljaujev algoritem.
+
 
 
 \section{Polinom v Taylorjevi vrsti}
