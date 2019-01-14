@@ -164,14 +164,37 @@ Ta postopek potrebuje $(n^2+3n)/2$ množenj.
 Naj bo T tetraeder. Za vsako točko $U$ iz $T$ naj bodo $(r,s,t,u)$ pripadajoče Baricentrične koordinate glede na $T$.  Naj bo $p$ polinom stopnje $n$ definiran na $T$. Polinom $p$ lahko zapišemo v modificirani Bernstein-Bezierjevi obliki kot 
 $$p(r,s,t,u) = \sum_{i = 0}^n{\sum_{j=0}^{i}{\sum_{k = 0}^{j}{c_{d-i,i-j,j-k,k} r^{d-i} s^{i-j} t^{j-k} u^k}}}.$$
 
+Kot v dvodimenzionalnem primeru, uporabimo nekoliko drugačen algoritem glede naa to kje točka $(r, s, t, u)$ leži v tetraedru.
+Definiramo štiri regije tetraedra.
+
+\begin{enumerate}
+\item $r\geq s, r\geq t, r\geq u$
+\item $s\geq r, s\geq t, s\geq u$
+\item $t\geq r, t\geq s, t\geq u$
+\item $u\geq r,u\geq s, u\geq t$
+\end{enumerate}
+
 %zavrtimo točke tako da je računanje efficient
 
-Vrednost polinoma $p$ v točki $(r,s,t,u)$ lahko izračunamo s sledečim algoritmom.
+Vrednost polinoma $p$ v točki $(r,s,t,u)$, ki se nahaja v četrti regiji, lahko izračunamo s sledečim algoritmom.
 
 \begin{algoritm}
 \begin{lstlisting}[escapeinside={(*}{*)}]
 
-TODO
+ru = r/u,	 su= s/u	 tu= t/u
+A = (*$c_{n,0,0,0}$*);
+for i = 1:n
+    B = (*$c_{n-i,i,0,0}$*)
+    for j = 1:i
+        C =  (*$c_{n-i,i-j,j,0}$*)
+            for k = 1:j
+                C = C * tu + (*$c_{n-i,i-j,j-k,k}$*)
+            end
+        B = B * ru + C
+    end
+    A = A * ru + B;
+end
+p(r,s,t,u) = A(*$u^n$*)
 
 \end{lstlisting}
 \end{algoritm}
