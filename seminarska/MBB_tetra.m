@@ -12,6 +12,10 @@ function vr = MBB_tetra( M, U )
 
 n = length(M);
 
+% we permutate baricentric koordinates U a litle bit because we sum/multiply
+% in sligthly different order than usual/golob.
+U = permutateBBtoMBB(U); 
+
 ru = U(1)/U(4);
 su = U(2)/U(4);
 tu = U(3)/U(4);
@@ -29,5 +33,5 @@ for k = n-1:-1:1
     A = A * tu + B;
 end
 
-vr = A * U(4)^n;
+vr = A * U(4)^(n-1);
 
