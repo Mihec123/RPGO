@@ -1,8 +1,8 @@
-function vr = MBB_tetra( c, U )
+function vr = MBB_tetra( M, U )
 %   MBB_tetra  izraèuna  vrednost polinoma treh spremenljivk v modificirani
 %   Bernstein-Bezier obliki
 % Vhodna  podatka:
-%   c   celica  velikosti n+1 x n+1 x n+1 x n+1, ki  predstavlja
+%   c   matrika  velikosti n+1 x n+1 x n+1 x n+1, ki  predstavlja
 %       koeficiente  polinoma  treh  spremenljivk  stopnje n v
 %       modificirani Bernstein-Bezier  obliki 
 %   U   baricentricne koordinate tocke v kateri racunamo vrednost polinoma
@@ -10,29 +10,24 @@ function vr = MBB_tetra( c, U )
 %   Izhodni  podatek:
 %   vr   vrednost  polinoma v baricentricnih koordinatah U
 
-r = U(1);
-s = U(2);
-t = U(3);
-u = U(4);
+n = length(M);
 
-n = length(c)-1;
+ru = U(1)/U(4);
+su = U(2)/U(4);
+tu = U(3)/U(4);
 
-ru = r/u;
-su = s/u;
-tu = t/u;
-
-A = c(n+1,1,1,1);
-for i = 1:n
-    B = c(n-i+1,i+1,1,1);
-    for j = 1:i
-        C = c(d-i+1,i-j+1,j+1,1);
-        for k = 1:j
-            C = C * tu + c(d-i+1,i-j+1,j-k+1,k+1);
+A = M(1,1,n);
+for k = n-1:-1:1
+    B = M(1,n+1-k,k);
+    for j = n-k:-1:1
+        C = M(n+2-k-j,j,k);
+        for i = n+1-k-j:-1:1
+            C = C * ru + M(i,j,k);
         end
         B = B * su + C;
     end
-    A = A * ru + B;
+    A = A * tu + B;
 end
 
-vr = A * u^n;
+vr = A * U(4)^n;
 
