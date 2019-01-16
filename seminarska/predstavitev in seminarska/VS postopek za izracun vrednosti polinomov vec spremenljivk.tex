@@ -111,33 +111,33 @@ Zgornji primer lahko posplošimo na polinome poljubnih dimenzij.
 
 \begin{algoritm}
 \label{MBB}
-Naj bo p polinom stopnje $n$ podan v MBB obliki, ter naj bodo $ r,s,t$ baricentirčne koordinate točke za katere velja $r \geq s,r \geq t$, tedaj lahko s sledečim algoritmom izračunamo vrenost polinoma p v točki $(r,s,t)$
+Naj bo p polinom stopnje $d$ podan v MBB obliki, ter naj bodo $ r,s,t$ baricentirčne koordinate točke za katere velja $r \geq s,r \geq t$, tedaj lahko s sledečim algoritmom izračunamo vrenost polinoma p v točki $(r,s,t)$
 \begin{lstlisting}[escapeinside={(*}{*)}]
 sr = s/r,	 tr= s/r
-A = (*$c_{0,n,0}$*);
-for i = 1:n
-    B = (*$c_{0,n-i,i}$*)
+A = (*$c_{0,d,0}$*);
+for i = 1:d
+    B = (*$c_{0,d-i,i}$*)
     for j = i:-1:1
-        B = B*tr + (*$c_{i-j+1,n-i,j-1}$*);
+        B = B*tr + (*$c_{i-j+1,d-i,j-1}$*);
     end
     A = A *sr +B;
 end
-p(r,s,t) = A(*$r^n$*)
+p(r,s,t) = A(*$r^d$*)
 \end{lstlisting}
 \end{algoritm}
 
 \begin{trditev}
-Algoritem za izračun vrednosti polinoma v MBB obliki potrebuje $(n^2+5n)/2$ množenj.
+Algoritem za izračun vrednosti polinoma v MBB obliki potrebuje $(d^2+5d)/2$ množenj.
 \end{trditev}
 \begin{proof}
 Sledimo postopku iz dokaza trditve \ref{decast}.
 \end{proof}
-Tu je potrebno povedati, da se lahko $r^n$ izračuna hitreje, kot z $n-1$ množenji, torej je samo število operacij v algoritmu še nekoliko manjše. Podobno lahko izpeljemo tudi algoritme za ostala območja.
+Tu je potrebno povedati, da se lahko $r^d$ izračuna hitreje, kot z $d-1$ množenji, torej je samo število operacij v algoritmu še nekoliko manjše. Podobno lahko izpeljemo tudi algoritme za ostala območja.
 
 
 \vspace{3mm}
 
-Pojavlja se še vprašanje zahtevnosti pretvorbe polinoma v MBB obliko. Če se lotimo naivno in na novo poračunamo vse koeficiente potem nas ta postopek stane $O(n^3)$ operacij. Kar lahko povzroči to, da je časovna zahtevnost, ki jo potrebujemo za izračun ene točke večja, kot če bi uporabili navadni De Casteljaujev algoritem. Še vedno pa bo veljalo, da v primeru če želimo izračunati veliko točk na istem polinomu MBB algoritem deluje veliko hitreje.
+Pojavlja se še vprašanje zahtevnosti pretvorbe polinoma v MBB obliko. Če se lotimo naivno in na novo poračunamo vse koeficiente potem nas ta postopek stane $O(d^3)$ operacij. Kar lahko povzroči to, da je časovna zahtevnost, ki jo potrebujemo za izračun ene točke večja, kot če bi uporabili navadni De Casteljaujev algoritem. Še vedno pa bo veljalo, da v primeru če želimo izračunati veliko točk na istem polinomu MBB algoritem deluje veliko hitreje.
 
 Druga možnost, ki jo imamo pa je ta, da si v naprej poračunamo vrednosti s katerimi moramo množiti koeficiente polinoma. To je potrebno za vsako dimenzijo storiti le enkrat, nato pa za izračun novih koeficientov potrebujemo le še $(d^2+3d-4)/2$ množenj. Temu postopku rečemo VSC algoritem. VSC algoritem je tako vedno bolj učinkovit kot De Casteljaujev algoritem.
 
@@ -145,17 +145,17 @@ Druga možnost, ki jo imamo pa je ta, da si v naprej poračunamo vrednosti s kat
 
 \section{Polinom v Taylorjevi vrsti}
 
-Naj bo T trikotnik in naj bo $p$ polinom stopnje $n$ definiran na $T$. Naj bosta $u = x-x_1$ in $v = y-y_1$ določena na tak način. Tu sta $(x_1,y_1)$ koordinati poljubnega ogljišča trikotnika. Polinom $p$ lahko potem zapišemo v Taylorjevi obliki kot 
-$$p(u,v) = \sum_{i = 0}^n{\sum_{j=0}^{n-i}{a_{i,j}u^iv^j }}.$$To obliko bomo krajše klicali $TAY$.  Vrednost polinoma $p$ v točki $(u,v)$ lahko izračunamo s sledečim algoritmom.
+Naj bo T trikotnik in naj bo $p$ polinom stopnje $d$ definiran na $T$. Naj bosta $u = x-x_1$ in $v = y-y_1$ določena na tak način. Tu sta $(x_1,y_1)$ koordinati poljubnega ogljišča trikotnika. Polinom $p$ lahko potem zapišemo v Taylorjevi obliki kot 
+$$p(u,v) = \sum_{i = 0}^d{\sum_{j=0}^{d-i}{a_{i,j}u^iv^j }}.$$To obliko bomo krajše klicali $TAY$.  Vrednost polinoma $p$ v točki $(u,v)$ lahko izračunamo s sledečim algoritmom.
 
 \begin{algoritm}
 \begin{lstlisting}[escapeinside={(*}{*)}]
 
-p = (*$a_{0,n}$*)
+p = (*$a_{0,d}$*)
 for i = 1:d
-    A = (*$a_{i,n-i}$*)
+    A = (*$a_{i,d-i}$*)
     for j = 1:i
-        A = A * u + (*$a_{i-j,n-i}$*)
+        A = A * u + (*$a_{i-j,d-i}$*)
     end
     p = p * v + A
 end
@@ -163,7 +163,7 @@ end
 \end{algoritm}
 
 \begin{trditev}
-Taylorjev algoritem za izračun vrednosti polinoma potrebuje $(n^2+3n)/2$ množenj.
+Taylorjev algoritem za izračun vrednosti polinoma potrebuje $(d^2+3d)/2$ množenj.
 \end{trditev}
 
 \begin{proof}
@@ -193,7 +193,7 @@ Tu je jasno vidno, da ima edino de Casteljoujev algoritem kubično zahtevnost, o
 \section{Polinomi na tetraedrih}
 
 Naj bo T tetraeder. Za vsako točko $U$ iz $T$ naj bodo $(r,s,t,u)$ pripadajoče Baricentrične koordinate glede na $T$.  Naj bo $p$ polinom stopnje $n$ definiran na $T$. Polinom $p$ lahko zapišemo v modificirani Bernstein-Bezierjevi obliki kot 
-$$p(r,s,t,u) = \sum_{i = 0}^n{\sum_{j=0}^{i}{\sum_{k = 0}^{j}{c_{d-i,i-j,j-k,k} r^{d-i} s^{i-j} t^{j-k} u^k}}}.$$
+$$p(r,s,t,u) = \sum_{i = 0}^d{\sum_{j=0}^{i}{\sum_{k = 0}^{j}{c_{d-i,i-j,j-k,k} r^{d-i} s^{i-j} t^{j-k} u^k}}}.$$
 Tako podan polinom ima $(d+1)(d+2)(d+3)/6$ koeficientov. Na sliki lahko vidimo te koeficiente v primeru $d=2$.
 
 \begin{center}
@@ -219,19 +219,19 @@ Naj bo p polinom stopnje $d$ podan v MBB obliki, ter naj bodo $ r,s,t,u$ baricen
 
 \begin{lstlisting}[escapeinside={(*}{*)}]
 ru = r/u,	 su= s/u	 tu= t/u
-A = (*$c_{n,0,0,0}$*);
-for i = 1:n
-    B = (*$c_{n-i,i,0,0}$*)
+A = (*$c_{d,0,0,0}$*);
+for i = 1:d
+    B = (*$c_{d-i,i,0,0}$*)
     for j = 1:i
-        C =  (*$c_{n-i,i-j,j,0}$*)
+        C =  (*$c_{d-i,i-j,j,0}$*)
             for k = 1:j
-                C = C * tu + (*$c_{n-i,i-j,j-k,k}$*)
+                C = C * tu + (*$c_{d-i,i-j,j-k,k}$*)
             end
         B = B * ru + C
     end
     A = A * ru + B;
 end
-p(r,s,t,u) = A(*$u^n$*)
+p(r,s,t,u) = A(*$u^d$*)
 \end{lstlisting}
 \end{algoritm}
 
