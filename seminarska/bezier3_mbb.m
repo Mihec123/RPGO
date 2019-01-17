@@ -17,18 +17,40 @@ function b = bezier3_mbb (Bx ,By ,Bz ,U)
 %   b matrika , v kateri vsaka vrstica predstavlja
 %       tocko na Bezierjevi krpi pri istole?nih
 %       parametrih iz matrike U
-
+addpath('.\matrike')
 
 [n1,m1] = size(U);
 [n,m] = size(Bx);
-
 n = n-1;
+
+try
+    %ce mamo v naprej poracunane koeficiente
+    text = './matrike/velikost';
+    temp = int2str(n+1);
+    textnot = strcat(text,temp);
+    textnot = strcat(textnot,'.mat');
+    load(textnot);%matrika je poimenovana s K
+
+    Bx = K.*Bx;
+    By = K.*By;
+    Bz = K.*Bz;
+
+catch
+    disp('koeficienti niso bili poracunani v naprej')
+    %ce slucajno nimamo v naprej poracunan
+    Bx = MBB_poly_conv( Bx ); 
+    By = MBB_poly_conv( By );
+    Bz = MBB_poly_conv( Bz );
+end
+
+
 
 b = zeros(n1,3);
 
-Bx = MBB_poly_conv( Bx );
-By = MBB_poly_conv( By );
-Bz = MBB_poly_conv( Bz );
+
+
+%v naprej poracunani koeficienti
+
 
 for i = 1:n1
     for k = 1:3
