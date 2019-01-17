@@ -1,8 +1,8 @@
 %demonstracija za uporabo mbb pri vec tockah
 
-Bx = triu(rand(100));
-By = triu(rand(100));
-Bz = triu(rand(100));
+Bx = triu(rand(101));
+By = triu(rand(101));
+Bz = triu(rand(101));
 
 % Bx = [0 2 6 8;1 3 7 NaN;2 5 NaN NaN; 4 NaN NaN NaN];
 % By = [0 1 0 -1; 2 2 3 NaN; 4 3 NaN NaN; 5 NaN NaN NaN];
