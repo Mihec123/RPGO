@@ -4,7 +4,6 @@
 \usepackage[T1]{fontenc}
 
 
-
 \usepackage{caption}
 \usepackage{amsmath}
 \usepackage{amsthm}
@@ -75,6 +74,7 @@ $$\sum_{k=1}^{d}\frac{3}{2}(d-k+1)*(d-k+2) = d(d+1)(d+2)/2.$$
 \end{proof}
 
 
+
 \section{Modificirana Bernstein-Bezierjeva reprezentacija}
 
 Če imamo podan polinom v Bernsteinovi obliki $$p(r,\\s,\\t) = \sum_{i=0}^{d}\sum_{j=0}^{i}b_{d-i,i-j,j}B_{d-i,i-j,j}^d(r,\\s,\\t),$$
@@ -115,8 +115,8 @@ S pravilno izbiro regije poskrbimo, da ne delimo z $0$, hkrati pa se izognemo š
 
 Zgornji primer lahko posplošimo na polinome poljubnih dimenzij.
 
-\begin{algoritm}[VS algoritem]
-\label{MBB}
+\begin{algoritm}
+\label{MBB}[VS algoritem]
 Naj bo p polinom stopnje $d$ podan v MBB obliki, ter naj bodo $ r,s,t$ baricentirčne koordinate točke za katere velja $r \geq s,r \geq t$, tedaj lahko s sledečim algoritmom izračunamo vrednost polinoma p v točki $(r,s,t)$
 \begin{lstlisting}[escapeinside={(*}{*)}]
 sr = s/r,	 tr= s/r
@@ -148,7 +148,6 @@ Pojavlja se še vprašanje zahtevnosti pretvorbe polinoma v MBB obliko. Če se l
 Druga možnost, ki jo imamo pa je ta, da si v naprej poračunamo vrednosti s katerimi moramo množiti koeficiente polinoma. To je potrebno za vsako dimenzijo storiti le enkrat, nato pa za izračun novih koeficientov potrebujemo le še $(d^2+3d-4)/2$ množenj. Temu postopku rečemo VSC algoritem. VSC algoritem je tako vedno bolj učinkovit kot De Casteljaujev algoritem.
 
 De Casteljaujev algoritem deluje na konveksnih kombinacijah, kar je zelo stabilno če so vsi koeficienti nenegatvini. To se v splošnem ne zgodi, a nam konveksnonst vseeno zagotavlja, da bodo vmesne vrednosti omejene z normo začetnih koeficientov. Podobno omejitev pa lahko naredimo tudi pri VS algoritmu. Ker so vsi ulomki, ter spremenljivke $(r,s,t)$ manjše od $1$, velja da so vse vmesne vrednosti manše kot produkt norme koeficientov in števila koeficientov.
-
 
 \section{Polinom v Taylorjevi vrsti}
 
@@ -185,7 +184,7 @@ V spodnji tabeli lahko vidimo primerjavo števila množenj, ki jih posamezen alg
 \includegraphics[width=.9\linewidth]{tabelca.PNG}
 \end{center}
 
-Dosedanji algoritmi imajo sledeča števila operacij, pri kateri smo poleg množenj dodali še deljenja, ki pa ne vplivajo bistevno na število operacij, ki jih moramo izvesti.
+ Dosedanji algoritmi imajo sledeča števila operacij, pri kateri smo poleg množenj dodali še deljenja, ki pa ne vplivajo bistevno na število operacij, ki jih moramo izvesti.
 
 \begin{align}
 (d^3+3d^2+2d)/2& \quad \text{de Casteljou} \nonumber \\
@@ -200,27 +199,31 @@ Na spodnjih grafih lahko vidimo še primerjavo algoritmov glede na časovno zaht
 \centering
 \begin{minipage}{.5\textwidth}
 \centering
-\includegraphics[scale=0.3]{vs}
+% \includegraphics[scale=0.3]{vs}
 \label{fig:vs}
 \end{minipage}%
 \begin{minipage}{.5\textwidth}
 \centering
-\includegraphics[scale=0.3]{vs_potratn.jpg}
+% \includegraphics[scale=0.3]{vs_potratn.jpg}
 \label{fig:vspot}
 \end{minipage}
 \end{figure}
 
 
-\begin{figure}[h]
+ \begin{figure}[h]
 \centering
 \begin{minipage}{.5\textwidth}
 \centering
-\includegraphics[scale=0.3]{vsc}
+% \includegraphics[scale=0.3]{vsc}
 \label{fig:vsc}
 \end{minipage}
 \end{figure}
 
-\newpage
+
+ \newpage
+\section{Gradient}
+De Casteljaujev algoritem ne izračuna le vrednosti polynoma $p$ v točki $(r,s,t)$, ampak hkrati vrne tudi gradient v tej točki. Če računamo z MBB algoritmom gradienta ne dobimo. Vendar pa je enostavno dobiti koeficiente $D_rp$ in $D_sp$, ki sta polinoma stopnje $d-1$. Njuni vrednosti izračunamo z VS algoritmov z $d^2 + 3d$ množenj. Torej za vrednost in gradienta potrebujemo skupaj $(3d^2 + 11d + 4)/2$ množenj. Za $d\geq4$ je to hitreje od de Casteljauja. 
+
 
 \section{Polinomi na tetraedrih}
 
