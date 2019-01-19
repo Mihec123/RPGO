@@ -161,6 +161,18 @@ Algoritem potrebuje $(d^2+3d)/2$ množenj.
 
 \end{frame}
 
+
+\begin{frame}
+\frametitle{Gradient}
+De Casteljaujev algoritem vrne tudi gradient. Iz MBB algoritma gradienta ne dobimo. 
+Posebej izračunammo vrednost gradienta.
+Skupaj potrebujemo $(3d^2 + 11d + 4)/2$ množenj.
+Za $d\geq4$ je to hitreje od de Casteljauja. 
+
+
+\end{frame}
+
+
 \begin{frame}
 \frametitle{Polinom v treh spremenljivkah}
 Naj bo T tetraeder v $\mathbb{R}^3$ in naj bodo $(r,s,t,u)$ pripadajoče baricentrične koordinate točke $P$. Potem lahko polinom v točki $P$ zapišemo kot
@@ -186,7 +198,7 @@ for i = 1:d
         C =  (*$c_{d-i,i-j,j,0}$*)
             for k = 1:j
                 C = C * tu + (*$c_{d-i,i-j,j-k,k}$*)
-        B = B * ru + C
+        B = B * su + C
     A = A * ru + B;
 p(r,s,t,u) = A(*$u^d$*)
 \end{lstlisting}
