@@ -3,6 +3,9 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 
+
+
+\usepackage{caption}
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{amsfonts}
@@ -65,9 +68,11 @@ De Casteljaujev algoritem potrebuje $d(d+1)(d+2)/2$ množenj.
 \end{trditev}
 
 \begin{proof}
-V notranji zanki na vsakem koraku naredimo $3$ množenja. Notranja zanka se izvede $i+1$ krat. To pomeni da v drugi zanki naredimo $3(i+1)$ množenj. Vsota $\sum_{i=0}^{d-k}3(i+1) = \frac{3}{2}(d-k+1)*(d-k+2)$. Za celotno število korakov je potrebno sešteti še $\sum_{k=1}^{d}\frac{3}{2}(d-k+1)*(d-k+2) = d(d+1)(d+2)/2$.
+V notranji zanki na vsakem koraku naredimo $3$ množenja. Notranja zanka se izvede $i+1$ krat. To pomeni da v drugi zanki ob vsaki iteraciji naredimo $3(i+1)$ množenj. Število vseh množenj v drugi zanki je torej enako
+$$\sum_{i=0}^{d-k}3(i+1) = \frac{3}{2}(d-k+1)*(d-k+2).$$
+Za celotno število korakov je potrebno sešteti še korake glede na zunanjo zanko, kar prinese 
+$$\sum_{k=1}^{d}\frac{3}{2}(d-k+1)*(d-k+2) = d(d+1)(d+2)/2.$$
 \end{proof}
-
 
 
 \section{Modificirana Bernstein-Bezierjeva reprezentacija}
@@ -93,6 +98,7 @@ p(r,s,t) &= \sum_{i=0}^{2}\sum_{j=0}^{i}c_{2-i,i-j,j}r^{2-i}s^{i-j}t^j \nonumber
 &= r^2(\frac{s}{r}(c_2+\frac{s}{r}c_4+\frac{t}{r}c_5)+\frac{t}{r}(\frac{t}{r}c_6+c_3)+c_1) \nonumber
 \end{align}
 
+Tako zapisan polinom lahko sedaj evaluiramo z manj množenji kot če bi izvedli De Casteljoujev algoritem.
 Tu je potrebno biti pozoren na to, da ne delimo z $0$. Temu se lahko izognemo tako, da ločimo primere glede na to kje v kontrolnem trikotniku se nahajamo. Ločimo $3$ primere kot je prikazano na sliki.
 
 \begin{center}
@@ -109,9 +115,9 @@ S pravilno izbiro regije poskrbimo, da ne delimo z $0$, hkrati pa se izognemo š
 
 Zgornji primer lahko posplošimo na polinome poljubnih dimenzij.
 
-\begin{algoritm}
+\begin{algoritm}[VS algoritem]
 \label{MBB}
-Naj bo p polinom stopnje $d$ podan v MBB obliki, ter naj bodo $ r,s,t$ baricentirčne koordinate točke za katere velja $r \geq s,r \geq t$, tedaj lahko s sledečim algoritmom izračunamo vrenost polinoma p v točki $(r,s,t)$
+Naj bo p polinom stopnje $d$ podan v MBB obliki, ter naj bodo $ r,s,t$ baricentirčne koordinate točke za katere velja $r \geq s,r \geq t$, tedaj lahko s sledečim algoritmom izračunamo vrednost polinoma p v točki $(r,s,t)$
 \begin{lstlisting}[escapeinside={(*}{*)}]
 sr = s/r,	 tr= s/r
 A = (*$c_{0,d,0}$*);
@@ -137,11 +143,12 @@ Tu je potrebno povedati, da se lahko $r^d$ izračuna hitreje, kot z $d-1$ množe
 
 \vspace{3mm}
 
-Pojavlja se še vprašanje zahtevnosti pretvorbe polinoma v MBB obliko. Če se lotimo naivno in na novo poračunamo vse koeficiente potem nas ta postopek stane $O(d^3)$ operacij. Kar lahko povzroči to, da je časovna zahtevnost, ki jo potrebujemo za izračun ene točke večja, kot če bi uporabili navadni De Casteljaujev algoritem. Še vedno pa bo veljalo, da v primeru če želimo izračunati veliko točk na istem polinomu MBB algoritem deluje veliko hitreje.
+Pojavlja se še vprašanje zahtevnosti pretvorbe polinoma v MBB obliko. Če se lotimo naivno in na novo poračunamo vse koeficiente potem nas ta postopek stane $O(d^3)$ operacij. To povzroči, da je časovna zahtevnost, ki jo potrebujemo za izračun ene točke večja, kot če bi uporabili navadni De Casteljaujev algoritem. Če pa na enem polinomu poračunamo večje število točk, postane VS algoritem bolj učinkovit.
 
 Druga možnost, ki jo imamo pa je ta, da si v naprej poračunamo vrednosti s katerimi moramo množiti koeficiente polinoma. To je potrebno za vsako dimenzijo storiti le enkrat, nato pa za izračun novih koeficientov potrebujemo le še $(d^2+3d-4)/2$ množenj. Temu postopku rečemo VSC algoritem. VSC algoritem je tako vedno bolj učinkovit kot De Casteljaujev algoritem.
 
-\newpage
+De Casteljaujev algoritem deluje na konveksnih kombinacijah, kar je zelo stabilno če so vsi koeficienti nenegatvini. To se v splošnem ne zgodi, a nam konveksnonst vseeno zagotavlja, da bodo vmesne vrednosti omejene z normo začetnih koeficientov. Podobno omejitev pa lahko naredimo tudi pri VS algoritmu. Ker so vsi ulomki, ter spremenljivke $(r,s,t)$ manjše od $1$, velja da so vse vmesne vrednosti manše kot produkt norme koeficientov in števila koeficientov.
+
 
 \section{Polinom v Taylorjevi vrsti}
 
@@ -172,13 +179,13 @@ Sledimo postopku iz dokaza trditve \ref{decast}.
 
 \section{Primerjava algoritmov}
 
-Algoritmu \ref{MBB}, ki ne potrebuje pretvorbe iz Bernsteinove v MBB obliko nakratko rečemu VS algoritem. V spodnji tabeli lahko vidimo primerjavo števla množenj, ki jih posamezen algoritem izvede odvisno od stopnje polinoma.
+V spodnji tabeli lahko vidimo primerjavo števila množenj, ki jih posamezen algoritem izvede odvisno od stopnje polinoma.
 
 \begin{center}
 \includegraphics[width=.9\linewidth]{tabelca.PNG}
 \end{center}
 
- Če povzamemo imamo na tem mestu sledeče časovne zahtevnosti, pri kateri smo poleg množenj dodali še deljenja, ki pa ne vplivajo bistevno na število operacij, ki jih moramo izvesti.
+Dosedanji algoritmi imajo sledeča števila operacij, pri kateri smo poleg množenj dodali še deljenja, ki pa ne vplivajo bistevno na število operacij, ki jih moramo izvesti.
 
 \begin{align}
 (d^3+3d^2+2d)/2& \quad \text{de Casteljou} \nonumber \\
@@ -187,8 +194,33 @@ Algoritmu \ref{MBB}, ki ne potrebuje pretvorbe iz Bernsteinove v MBB obliko nakr
 (d^2+3d)/2& \quad \text{Taylor} \nonumber
 \end{align}
 
-Tu je jasno vidno, da ima edino de Casteljoujev algoritem kubično zahtevnost, ostali algoritmi pa le kvadratično. Velikost razlike v številu množenj lahko jasno vidimo v zgornji tabeli. Opazimo tudi, da je Taylorjev algoritem najhitrejši. Vendar nas sama pretvorba iz Bernsteinove ali MBB oblike v Taylorjevo stane preveč, da bi se nam splačalo izvajati Taylorjev algoritem. Zaključimo lahko torej, da je v primeru, ko delamo z polinomi v Bernsteinovi obliki najboljši VSC algoritem.
+Tu je jasno vidno, da ima edino de Casteljoujev algoritem kubično zahtevnost, ostali algoritmi pa le kvadratično. Velikost razlike v številu množenj lahko jasno vidimo v zgornji tabeli. Opazimo tudi, da je Taylorjev algoritem najhitrejši. Vendar nas sama pretvorba iz Bernsteinove ali MBB oblike v Taylorjevo stane preveč, da bi se nam splačalo izvajati Taylorjev algoritem. Zaključimo lahko torej, da je v primeru, ko delamo s polinomi v Bernsteinovi obliki najboljši VSC algoritem.
+Na spodnjih grafih lahko vidimo še primerjavo algoritmov glede na časovno zahtevnost v odvisnosti od stopnje polinoma.
+\begin{figure}[h]
+\centering
+\begin{minipage}{.5\textwidth}
+\centering
+\includegraphics[scale=0.3]{vs}
+\label{fig:vs}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+\centering
+\includegraphics[scale=0.3]{vs_potratn.jpg}
+\label{fig:vspot}
+\end{minipage}
+\end{figure}
 
+
+\begin{figure}[h]
+\centering
+\begin{minipage}{.5\textwidth}
+\centering
+\includegraphics[scale=0.3]{vsc}
+\label{fig:vsc}
+\end{minipage}
+\end{figure}
+
+\newpage
 
 \section{Polinomi na tetraedrih}
 
