@@ -49,9 +49,9 @@ $$p(r,\\s,\\t) = \sum_{i=0}^{d}\sum_{j=0}^{i}b_{d-i,i-j,j}B_{d-i,i-j,j}^{d},$$
 kjer velja
 $$B_{i,j,k}^{d}(r,s,t) = \frac{d!}{i!j!k!}r^{i}s^jt^k.$$
 
-Tako podan polinom lahko evaluiramo s pomočjo De Casteljaujevega algoritma
+Tako podan polinom lahko evaluiramo s pomočjo De Casteljaujevega algoritma.
 \begin{algoritm}[De Casteljau]
-Naj bo $p$ polinom stopnje $d$ podan v Bezierjevi obliki, ter naj bodo $ r,s,t$ baricentirčne koordinate točke $P$, tedaj lahko s sledečim algoritmom izračunamo vrenost polinoma p v točki $P$.
+Naj bo $p$ polinom stopnje $d$ podan v Bezierjevi obliki, ter naj bodo $ r,s,t$ baricentirčne koordinate točke $P$, tedaj lahko s sledečim algoritmom izračunamo vrednost polinoma p v točki $P$.
 \begin{lstlisting}[escapeinside={(*}{*)}]
 for k=1:d
   for i=0:d-k
@@ -67,7 +67,7 @@ De Casteljaujev algoritem potrebuje $d(d+1)(d+2)/2$ množenj.
 \end{trditev}
 
 \begin{proof}
-V notranji zanki na vsakem koraku naredimo $3$ množenja. Notranja zanka se izvede $i+1$ krat. To pomeni da v drugi zanki ob vsaki iteraciji naredimo $3(i+1)$ množenj. Število vseh množenj v drugi zanki je torej enako
+V notranji zanki na vsakem koraku naredimo $3$ množenja. Notranja zanka se izvede $i+1$ krat. To pomeni, da v drugi zanki ob vsaki iteraciji naredimo $3(i+1)$ množenj. Število vseh množenj v drugi zanki je torej enako
 $$\sum_{i=0}^{d-k}3(i+1) = \frac{3}{2}(d-k+1)*(d-k+2).$$
 Za celotno število korakov je potrebno sešteti še korake glede na zunanjo zanko, kar prinese 
 $$\sum_{k=1}^{d}\frac{3}{2}(d-k+1)*(d-k+2) = d(d+1)(d+2)/2.$$
@@ -82,7 +82,7 @@ potem lahko tak polinom enostavno prepišemo v obliko
 $$p(r,\\s,\\t) = \sum_{i=0}^{d}\sum_{j=0}^{i}c_{d-i,i-j,j}r^{d-i}s^{i-j}t^j,$$
 tako da za koeficiente $c_{d-i,i-j,j}$ vzamemo
 $$c_{d-i,i-j,j} = \frac{d!}{(d-i)!(i-j)!j!}b_{d-i,i-j,j}, \quad j=0,\ldots, i;\\ i = 0,\ldots,d.$$
-Tej obliki polinoma rečemo modificirana Bernstein-Bezierjeva oblika ali krajše MBB. Pokazati želimo, da se polinom v MBB obliki, da evaluirati hitreje kakor v klasični Bezierjevi obliki. Ideja, ki se skriva v ozadju je ta, da lahko $p$ zapišemo v gnezdeni obliki. Poglejmo si na primeru polinomov stopnje $2$. Označimo kontrolne točke na sledeči način:
+Tej obliki polinoma rečemo modificirana Bernstein-Bezierjeva oblika ali krajše MBB. Pokazati želimo, da se polinom v MBB obliki, da evaluirati hitreje kakor v klasični Bezierjevi obliki. Ideja, ki se skriva v ozadju je ta, da lahko $p$ zapišemo v gnezdeni obliki. Poglejmo si na primeru polinomov stopnje $2$. Označimo domenske točke trikotnika na sledeči način:
 
 \begin{center}
 \includegraphics[width=.9\linewidth]{graf.png}
@@ -98,8 +98,8 @@ p(r,s,t) &= \sum_{i=0}^{2}\sum_{j=0}^{i}c_{2-i,i-j,j}r^{2-i}s^{i-j}t^j \nonumber
 &= r^2(\frac{s}{r}(c_2+\frac{s}{r}c_4+\frac{t}{r}c_5)+\frac{t}{r}(\frac{t}{r}c_6+c_3)+c_1) \nonumber
 \end{align}
 
-Tako zapisan polinom lahko sedaj evaluiramo z manj množenji kot če bi izvedli De Casteljoujev algoritem.
-Tu je potrebno biti pozoren na to, da ne delimo z $0$. Temu se lahko izognemo tako, da ločimo primere glede na to kje v kontrolnem trikotniku se nahajamo. Ločimo $3$ primere kot je prikazano na sliki.
+Tako zapisan polinom lahko sedaj evaluiramo z manj množenji, kot če bi izvedli de Casteljoujev algoritem.
+Tu je potrebno biti pozoren na to, da ne delimo z $0$. Temu se lahko izognemo tako, da ločimo primere glede na to, kje v kontrolnem trikotniku se nahajamo. Ločimo $3$ primere kot je prikazano na sliki.
 
 \begin{center}
 \includegraphics[width=.3\linewidth]{graf1.png}
@@ -113,11 +113,11 @@ Posamezne regije so določena na sledeč način
 
 S pravilno izbiro regije poskrbimo, da ne delimo z $0$, hkrati pa se izognemo še deljenju z zelo majhnimi števili, ki bi jih dobili pri baricentričnih koordinatah blizu roba.
 
-Zgornji primer lahko posplošimo na polinome poljubnih dimenzij.
+Zgornji primer lahko posplošimo na polinome poljubnih stopenj.
 
 \begin{algoritm}
 \label{MBB}[VS algoritem]
-Naj bo p polinom stopnje $d$ podan v MBB obliki, ter naj bodo $ r,s,t$ baricentirčne koordinate točke za katere velja $r \geq s,r \geq t$, tedaj lahko s sledečim algoritmom izračunamo vrednost polinoma p v točki $(r,s,t)$
+Naj bo p polinom stopnje $d$ podan v MBB obliki, ter naj bodo $ r,s,t$ baricentirčne koordinate točke, za katere velja $r \geq s,r \geq t$, tedaj lahko s sledečim algoritmom izračunamo vrednost polinoma p v točki $(r,s,t)$
 \begin{lstlisting}[escapeinside={(*}{*)}]
 sr = s/r,	 tr= s/r
 A = (*$c_{0,d,0}$*);
@@ -143,7 +143,7 @@ Tu je potrebno povedati, da se lahko $r^d$ izračuna hitreje, kot z $d-1$ množe
 
 \vspace{3mm}
 
-Pojavlja se še vprašanje zahtevnosti pretvorbe polinoma v MBB obliko. Če se lotimo naivno in na novo poračunamo vse koeficiente potem nas ta postopek stane $O(d^3)$ operacij. To povzroči, da je časovna zahtevnost, ki jo potrebujemo za izračun ene točke večja, kot če bi uporabili navadni De Casteljaujev algoritem. Če pa na enem polinomu poračunamo večje število točk, postane VS algoritem bolj učinkovit.
+Pojavlja se še vprašanje zahtevnosti pretvorbe polinoma v MBB obliko. Če se lotimo naivno in na novo poračunamo vse koeficiente, potem nas ta postopek stane $O(d^3)$ operacij. To povzroči, da je časovna zahtevnost, ki jo potrebujemo za izračun ene točke večja, kot če bi uporabili navadni De Casteljaujev algoritem. Če pa na enem polinomu poračunamo večje število točk, postane VS algoritem bolj učinkovit.
 
 Druga možnost, ki jo imamo pa je ta, da si v naprej poračunamo vrednosti s katerimi moramo množiti koeficiente polinoma. To je potrebno za vsako dimenzijo storiti le enkrat, nato pa za izračun novih koeficientov potrebujemo le še $(d^2+3d-4)/2$ množenj. Temu postopku rečemo VSC algoritem. VSC algoritem je tako vedno bolj učinkovit kot De Casteljaujev algoritem.
 
@@ -155,6 +155,7 @@ Naj bo T trikotnik in naj bo $p$ polinom stopnje $d$ definiran na $T$. Naj bosta
 $$p(u,v) = \sum_{i = 0}^d{\sum_{j=0}^{d-i}{a_{i,j}u^iv^j }}.$$To obliko bomo krajše klicali $TAY$.  Vrednost polinoma $p$ v točki $(u,v)$ lahko izračunamo s sledečim algoritmom.
 
 \begin{algoritm}
+Naj bo p polinom stopnje $d$ podan v Taylorjevi obliki. Tedaj lahko s sledečim algoritmom izračunamo vrednost polinoma p v točki $(u,v)$
 \begin{lstlisting}[escapeinside={(*}{*)}]
 
 p = (*$a_{0,d}$*)
@@ -187,13 +188,13 @@ V spodnji tabeli lahko vidimo primerjavo števila množenj, ki jih posamezen alg
  Dosedanji algoritmi imajo sledeča števila operacij, pri kateri smo poleg množenj dodali še deljenja, ki pa ne vplivajo bistevno na število operacij, ki jih moramo izvesti.
 
 \begin{align}
-(d^3+3d^2+2d)/2& \quad \text{de Casteljou} \nonumber \\
+(d^3+3d^2+2d)/2& \quad \text{de Casteljau} \nonumber \\
 (2d^2+8d)/2& \quad \text{VSC} \nonumber \\
 (d^2+5d+4)/2& \quad \text{VS} \nonumber \\
 (d^2+3d)/2& \quad \text{Taylor} \nonumber
 \end{align}
 
-Tu je jasno vidno, da ima edino de Casteljoujev algoritem kubično zahtevnost, ostali algoritmi pa le kvadratično. Velikost razlike v številu množenj lahko jasno vidimo v zgornji tabeli. Opazimo tudi, da je Taylorjev algoritem najhitrejši. Vendar nas sama pretvorba iz Bernsteinove ali MBB oblike v Taylorjevo stane preveč, da bi se nam splačalo izvajati Taylorjev algoritem. Zaključimo lahko torej, da je v primeru, ko delamo s polinomi v Bernsteinovi obliki najboljši VSC algoritem.
+Tu je jasno vidno, da ima edino de Casteljaujev algoritem kubično zahtevnost, ostali algoritmi pa le kvadratično. Razlika v številu množenj je razvidna v zgornji tabeli. Opazimo tudi, da je Taylorjev algoritem najhitrejši. Vendar nas sama pretvorba iz Bernsteinove ali MBB oblike v Taylorjevo stane preveč, da bi se nam splačalo izvajati Taylorjev algoritem. Zaključimo lahko torej, da je v primeru, ko delamo s polinomi v Bernsteinovi obliki najboljši VSC algoritem.
 Na spodnjih grafih lahko vidimo še primerjavo algoritmov glede na časovno zahtevnost v odvisnosti od stopnje polinoma.
 \begin{figure}[h]
 \centering
@@ -227,7 +228,7 @@ De Casteljaujev algoritem ne izračuna le vrednosti polynoma $p$ v točki $(r,s,
 
 \section{Polinomi na tetraedrih}
 
-Naj bo T tetraeder. Za vsako točko $U$ iz $T$ naj bodo $(r,s,t,u)$ pripadajoče Baricentrične koordinate glede na $T$.  Naj bo $p$ polinom stopnje $d$ definiran na $T$. Polinom $p$ lahko zapišemo v modificirani Bernstein-Bezierjevi obliki kot 
+Naj bo T tetraeder. Za vsako točko $U$ iz $T$ naj bodo $(r,s,t,u)$ pripadajoče baricentrične koordinate glede na $T$.  Naj bo $p$ polinom stopnje $d$ definiran na $T$. Polinom $p$ lahko zapišemo v modificirani Bernstein-Bezierjevi obliki kot 
 $$p(r,s,t,u) = \sum_{i = 0}^d{\sum_{j=0}^{i}{\sum_{k = 0}^{j}{c_{d-i,i-j,j-k,k} r^{d-i} s^{i-j} t^{j-k} u^k}}}.$$
 Tako podan polinom ima $(d+1)(d+2)(d+3)/6$ koeficientov. Na sliki lahko vidimo te koeficiente v primeru $d=2$.
 
@@ -235,7 +236,7 @@ Tako podan polinom ima $(d+1)(d+2)(d+3)/6$ koeficientov. Na sliki lahko vidimo t
 \includegraphics[width=.7\linewidth]{tetraeder.PNG}
 \end{center}
 
-Kot v dvodimenzionalnem primeru, uporabimo nekoliko drugačen algoritem glede na to kje točka $(r, s, t, u)$ leži v tetraedru.
+Kot v dvodimenzionalnem primeru, uporabimo nekoliko drugačen algoritem, glede na to kje točka $(r, s, t, u)$ leži v tetraedru.
 Definiramo štiri regije tetraedra.
 
 \begin{enumerate}
@@ -250,7 +251,7 @@ Definiramo štiri regije tetraedra.
 Vrednost polinoma $p$ v točki $(r,s,t,u)$, ki se nahaja v četrti regiji, lahko izračunamo s sledečim algoritmom.
 
 \begin{algoritm}
-Naj bo p polinom stopnje $d$ podan v MBB obliki, ter naj bodo $ r,s,t,u$ baricentirčne koordinate točke za katere velja $u > r,u > s, u>t$, tedaj lahko s sledečim algoritmom izračunamo vrenost polinoma p v točki $(r,s,t,u)$
+Naj bo p polinom stopnje $d$ podan v MBB obliki, ter naj bodo $ r,s,t,u$ baricentirčne koordinate točke, za katere velja $u > r,u > s, u>t$, tedaj lahko s sledečim algoritmom izračunamo vrednost polinoma p v točki $(r,s,t,u)$
 
 \begin{lstlisting}[escapeinside={(*}{*)}]
 ru = r/u,	 su= s/u	 tu= t/u
@@ -278,7 +279,7 @@ Zgornji algoritem za izračun vrednosti polinoma potrebuje $(d^3+ 6d^2 + 17d)/6$
 Sledimo postopku iz dokaza trditve \ref{decast}.
 \end{proof}
 
-Na podoben način lahko izepeljemo tudi algoritme za polinome več spremenljivk.
+Na podoben način lahko izpeljemo tudi algoritme za polinome več spremenljivk.
 
 
 \begin{thebibliography}{9}
