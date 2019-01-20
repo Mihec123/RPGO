@@ -1,6 +1,7 @@
 function b = decasteljau4( B,P )
-%S pomoèjo rezcveta (blossom4) funkcija izraèuna vrednost Bezierjeve
-%krivulje s koef. B v toèki P. P mora biti podana v baricentriènih
+%AVTORJA: ANDRA? NAGLI?, JAN GOLOB
+%S pomo?jo rezcveta (blossom4) funkcija izra?una vrednost Bezierjeve
+%krivulje s koef. B v to?ki P. P mora biti podana v baricentri?nih
 %koordinatah.
 
 [n,~,~]=size(B);

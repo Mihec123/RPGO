@@ -9,6 +9,9 @@ Bz = triu(rand(101));
 % Bz = [-2 1 -2 0; 4 -2 3 NaN; 0 5 NaN NaN; 3 NaN NaN NaN];
 
 U = rand(100,3);
+v = 1./sum(U,2);
+U = diag(v)*U;
+
 tic;
 b_mbb = bezier3_mbb(Bx,By,Bz,U);
 cas1 = toc;

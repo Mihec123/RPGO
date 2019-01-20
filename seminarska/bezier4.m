@@ -1,4 +1,5 @@
 function b = bezier4 (Bx ,By ,Bz, Bt ,U)
+%AVTORJA: ANDRA? NAGLI?, JAN GOLOB
 % Opis :
 % bezier4 izracuna tocke na trikotni Bezierjevi ploskvi
 % Definicija:
@@ -13,7 +14,7 @@ function b = bezier4 (Bx ,By ,Bz, Bt ,U)
 %       tocke na Bezierjevi krpi
 % Izhodni podatek :
 %   b matrika , v kateri vsaka vrstica predstavlja
-%       tocko na Bezierjevi krpi pri istoležnih
+%       tocko na Bezierjevi krpi pri istole?nih
 %       parametrih iz matrike U
 
 
