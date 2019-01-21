@@ -2,3 +2,8 @@
 *.aux
 *.asv
 matrike/
+*.vrb
+*.toc
+*.snm
+*.out
+*.nav
