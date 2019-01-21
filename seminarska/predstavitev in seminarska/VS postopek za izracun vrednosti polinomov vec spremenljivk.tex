@@ -119,7 +119,7 @@ Zgornji primer lahko posplošimo na polinome poljubnih stopenj.
 \label{MBB}[VS algoritem]
 Naj bo p polinom stopnje $d$ podan v MBB obliki, ter naj bodo $ r,s,t$ baricentirčne koordinate točke, za katere velja $r \geq s,r \geq t$, tedaj lahko s sledečim algoritmom izračunamo vrednost polinoma p v točki $(r,s,t)$
 \begin{lstlisting}[escapeinside={(*}{*)}]
-sr = s/r,	 tr= s/r
+sr = s/r,	 tr= t/r
 A = (*$c_{0,d,0}$*);
 for i = 1:d
     B = (*$c_{0,d-i,i}$*)
